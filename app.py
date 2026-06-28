@@ -1,7 +1,8 @@
 import streamlit as st
 
-from src.estruturasCurriculares import CURSOS, get_subjects_by_course
+from src.estruturasCurriculares import CURSOS, DISCIPLINAS, get_subjects_by_course
 from src.selector import course_selector, subject_checklist
+from src.graph_utils import build_reverse_graph, validate_planned_subjects
 
 
 st.set_page_config(
@@ -34,14 +35,17 @@ st.info(
 
 st.divider()
 
-st.subheader("Curso")
+st.header("Curso")
+st.write(
+    "Selecione o seu curso."
+)
 
 selected_course_id = course_selector(CURSOS)
 subjects = get_subjects_by_course(selected_course_id)
 
 st.divider()
 
-st.subheader("Disciplinas do curso selecionado")
+st.header("Disciplinas do curso selecionado")
 
 st.write(
     """
@@ -66,22 +70,11 @@ with right_column:
         key_prefix=f"planned_{selected_course_id}",
     )
 
-st.divider()
-
-st.subheader("Seleção atual")
-
-st.write("**Curso:**", CURSOS[selected_course_id]["name"])
-st.write("**Concluídas:**", sorted(completed_subjects))
-st.write("**Pretendidas:**", sorted(planned_subjects))
-
-from src.graph_utils import build_reverse_graph, validate_planned_subjects
-from src.estruturasCurriculares import DISCIPLINAS
-
 code_to_id = {v["code"]: k for k, v in DISCIPLINAS.items()}
 
 if planned_subjects:
     st.divider()
-    st.subheader("Validação de Matrícula")
+    st.header("Validação de Matrícula")
 
     subject_codes_in_course = [s["code"] for s in subjects]
     reverse_graph = build_reverse_graph(subject_codes_in_course)
@@ -93,12 +86,13 @@ if planned_subjects:
         subj_id = code_to_id.get(subj_code, subj_code)
         
         if result["allowed"]:
-            st.success(f"**{subj_id}** liberada.")
+            st.success(f"A disciplina **{subj_id}** está liberada.")
         else:
             missing_ids = [code_to_id.get(c, c) for c in result["missing"]]
-            st.error(f"**{subj_id}** bloqueada. Falta: {', '.join(missing_ids)}.")
+            st.error(f"A disciplina **{subj_id}** está bloqueada. Você precisa cursar antes: **{', '.join(missing_ids)}**.")
 
-    st.subheader("Caminhos de Dependência")
+    st.divider()
+    st.header("Caminhos de Dependência")
     for result in validation_results:
         visual_path = []
         for p in result["prerequisites"]:

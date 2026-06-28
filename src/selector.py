@@ -8,9 +8,11 @@ def course_selector(courses: dict) -> str:
     course_ids = list(courses.keys())
 
     selected_course_id = st.radio(
-        "Selecione seu curso:",
+        "Curso",
         options=course_ids,
         format_func=lambda course_id: courses[course_id]["name"],
+        label_visibility="collapsed",
+        horizontal=True,
     )
 
     return selected_course_id
