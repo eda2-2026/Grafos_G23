@@ -20,6 +20,10 @@ Descreva os objetivos do seu projeto e como ele funciona.
 *Figura 1: Visão inicial da interface selecionando o curso de Engenharia de Software.*
 
 
+![Seleção de Disciplinas e Validação Inicial](docs/validador_full.png)
+*Figura 2: Visão geral da interface selecionando o curso de Engenharia de Software. Aqui vemos a escolha das matérias concluídas (C1, C2, FAC, EDA1 e seus respectivos pré-requisitos lógicos) e as disciplinas pretendidas (Sistemas Distribuídos e Embarcados). Logo abaixo, os alertas de validação informam se as pretendidas estão liberadas ou bloqueadas.*
+
+
 ## Instalação
 **Linguagem**: xxxxxx<br>
 **Framework**: (caso exista)<br>
