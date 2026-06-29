@@ -71,4 +71,23 @@ python -m pytest tests/ -v
 - Se `python` não estiver disponível no seu terminal, use `python3` nos comandos acima.
 
 ## Uso
-Explique como usar seu projeto caso haja algum passo a passo após o comando de execução.
+
+Conforme as screenshots do trabalho, ao iniciar a aplicação, o usuário terá acesso a uma interface web interativa para a validação da sua matrícula acadêmica. O sistema disponibiliza os seguintes campos e funcionalidades:
+
+- **Curso:** área destinada à seleção de um dos 5 cursos de Engenharia (Aeroespacial, Automotiva, Energia, Software e Eletrônica), definindo o fluxo de disciplinas que estruturará o grafo.
+- **Disciplinas já concluídas:** campo onde o usuário marca todas as disciplinas em que já obteve aprovação ao longo do curso.
+- **Disciplinas pretendidas:** campo onde o usuário escolhe as matérias que deseja se matricular no semestre atual.
+
+Após a seleção das matérias pretendidas, o algoritmo entra em ação e apresenta os resultados:
+
+- **Validação de Matrícula:** exibe alertas detalhando se cada matéria pretendida está **liberada** ou **bloqueada** e lista exatamente quais matérias o estudante ainda precisa fazer para destravar as bloqueadas.
+- **Caminhos de Dependência:** seção que gera um fluxograma para cada matéria pretendida, contendo o caminho desde os pré-requisitos primários até o alvo final.
+
+O sistema classifica visualmente os nós do grafo em uma das seguintes categorias:
+
+- **Concluída (Verde):** quando a disciplina faz parte do caminho e já foi marcada como cursada.
+- **Pré-requisito faltante (Amarelo):** quando a disciplina faz parte da dependência da pretendida, mas ainda não foi cursada, bloqueando o avanço na trilha.
+- **Pretendida liberada (Azul):** quando a disciplina que o estudante deseja cursar atende a todos os critérios de pré-requisitos no grafo.
+- **Pretendida bloqueada (Vermelho):** quando a disciplina que o estudante deseja cursar possui pré-requisitos diretos ou indiretos pendentes no grafo.
+
+Além disso, a aplicação demonstra setas convergentes que permitem ao estudante compreender facilmente fluxos paralelos que se encontram em uma única disciplina mais avançada.
